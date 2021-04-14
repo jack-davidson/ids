@@ -18,6 +18,11 @@ MODULE(make)
 	return 0;
 }
 
+MODULE(help)
+{
+	printf("mk: make\ne: edit\ncl: clean\ns: shell run\n");
+}
+
 MODULE(edit)
 {
 	char *editor = getenv("EDITOR");
@@ -36,8 +41,7 @@ MODULE(clean)
 MODULE(run)
 {
 	printf("running\n");
-	char *file = malloc(128 * sizeof(char));
-	scanf("%s", file);
+	char *file = readline("$ ");
 	system(file);
 	free(file);
 	return 0;
@@ -67,6 +71,9 @@ int main()
 		}
 		else if (strcmp(input, "e") == 0) {
 			edit(NULL);
+		}
+		else if (strcmp(input, "h") == 0) {
+			help(NULL);
 		}
 
 		add_history(input);
